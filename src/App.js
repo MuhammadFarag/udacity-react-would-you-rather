@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Login from "./components/Login";
 import {_getQuestions, _getUsers} from "./_DATA";
+import {Navigation} from "./components/Navigation";
 
 function App() {
   const [users, setUsers] = useState([])
@@ -45,32 +46,14 @@ function App() {
 
   }
 
+  const handleNavigation = (nav) => {
+    setNavigation(nav)
+    setActiveQuestion(undefined)
+  }
+
   if (authenticatedUser && activeQuestion) {
     return <div>
-      <div>
-        <ul>
-          <li>
-            <button onClick={() => {
-              setNavigation('unanswered')
-              setActiveQuestion(undefined)
-            }}>Unanswered Questions
-            </button>
-          </li>
-          <li>
-            <button onClick={() => {
-              setNavigation('answered')
-              setActiveQuestion(undefined)
-            }}>Answered Questions
-            </button>
-          </li>
-          <li>
-            <button disabled>New Question</button>
-          </li>
-          <li>
-            <button disabled>Leader Board</button>
-          </li>
-        </ul>
-      </div>
+      <Navigation onClick={handleNavigation}/>
       <ul>
         <li>{activeQuestion.optionOne.text}</li>
         <li>{activeQuestion.optionTwo.text}</li>
@@ -80,28 +63,7 @@ function App() {
 
   if (authenticatedUser) {
     return <div>
-      <div>
-        <ul>
-          <li>
-            <button onClick={() => {
-              setNavigation('unanswered')
-            }}>Unanswered Questions
-            </button>
-          </li>
-          <li>
-            <button onClick={() => {
-              setNavigation('answered')
-            }}>Answered Questions
-            </button>
-          </li>
-          <li>
-            <button disabled>New Question</button>
-          </li>
-          <li>
-            <button disabled>Leader Board</button>
-          </li>
-        </ul>
-      </div>
+      <Navigation onClick={handleNavigation}/>
 
       <ol>
         {displayQuestions().map((question) => (
