@@ -6,6 +6,7 @@ function App() {
   const [users, setUsers] = useState([])
   const [questions, setQuestions] = useState([])
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
+  const [navigation, setNavigation] = useState('unanswered')
   useEffect(() => {
     _getUsers().then((users) => {
       setUsers(Object.values(users))
@@ -30,6 +31,15 @@ function App() {
 
   if (authenticatedUser) {
     return <div>
+      <div>
+        <ul>
+          <li><button onClick={() => {setNavigation('unanswered')} }>Unanswered Questions</button></li>
+          <li><button onClick={() => {setNavigation('answered')} }>Answered Questions</button></li>
+          <li><button disabled>New Question</button></li>
+          <li><button disabled>Leader Board</button></li>
+        </ul>
+      </div>
+
       <ol>
         {answeredQuestions ().map((question) => (
           <li key={question.id}>
