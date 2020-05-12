@@ -55,7 +55,7 @@ function App() {
   if (authenticatedUser && activeQuestion) {
     return <div>
       <Navigation onClick={handleNavigation}/>
-      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion}/>
+      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}/>
     </div>
   }
 
