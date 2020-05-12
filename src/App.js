@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Login from "./components/Login";
 import {_getQuestions, _getUsers} from "./_DATA";
 import {Navigation} from "./components/Navigation";
+import {Question} from "./components/Question";
 
 function App() {
   const [users, setUsers] = useState([])
@@ -54,13 +55,7 @@ function App() {
   if (authenticatedUser && activeQuestion) {
     return <div>
       <Navigation onClick={handleNavigation}/>
-      <div>
-        {users[activeQuestion.author].name} Asked
-      </div>
-      <ul>
-        <li>{activeQuestion.optionOne.text}</li>
-        <li>{activeQuestion.optionTwo.text}</li>
-      </ul>
+      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion}/>
     </div>
   }
 
