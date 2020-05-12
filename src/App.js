@@ -11,7 +11,7 @@ function App() {
   const [activeQuestion, setActiveQuestion] = useState(undefined)
   useEffect(() => {
     _getUsers().then((users) => {
-      setUsers(Object.values(users))
+      setUsers(users)
     })
   }, [])
 
@@ -54,6 +54,9 @@ function App() {
   if (authenticatedUser && activeQuestion) {
     return <div>
       <Navigation onClick={handleNavigation}/>
+      <div>
+        {users[activeQuestion.author].name} Asked
+      </div>
       <ul>
         <li>{activeQuestion.optionOne.text}</li>
         <li>{activeQuestion.optionTwo.text}</li>
@@ -97,7 +100,7 @@ function App() {
 
   return (
     <div>
-      <Login users={users} onAuthentication={handleAuthentication}/>
+      <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
     </div>
   );
 }
