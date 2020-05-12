@@ -22,10 +22,16 @@ function App() {
     setAuthenticatedUser(user)
   }
 
+  const answeredQuestions = () =>
+    questions.filter((question) =>
+      question.optionOne.votes
+        .concat(question.optionTwo.votes)
+        .includes(authenticatedUser.id))
+
   if (authenticatedUser) {
     return <div>
-      <ul>
-        {questions.map((question) => (
+      <ol>
+        {answeredQuestions ().map((question) => (
           <li key={question.id}>
             <ul>
               <li>{question.optionOne.text}</li>
@@ -33,7 +39,7 @@ function App() {
             </ul>
           </li>
           ))}
-      </ul>
+      </ol>
 
       <ul>
         <li>
