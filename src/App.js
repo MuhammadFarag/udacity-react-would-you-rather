@@ -15,11 +15,17 @@ function App() {
     setAuthenticatedUser(user)
   }
 
-  if (authenticatedUser){
+  if (authenticatedUser) {
     return <div>
       <ul>
         <li>
           Authenticated User: {authenticatedUser.name}
+        </li>
+        <li>
+          <button onClick={() => {
+            setAuthenticatedUser(undefined)
+          }}>logout
+          </button>
         </li>
       </ul>
     </div>
