@@ -82,10 +82,24 @@ function App() {
     return <div>
       <div>
         <ul>
-          <li><button onClick={() => {setNavigation('unanswered')} }>Unanswered Questions</button></li>
-          <li><button onClick={() => {setNavigation('answered')} }>Answered Questions</button></li>
-          <li><button disabled>New Question</button></li>
-          <li><button disabled>Leader Board</button></li>
+          <li>
+            <button onClick={() => {
+              setNavigation('unanswered')
+            }}>Unanswered Questions
+            </button>
+          </li>
+          <li>
+            <button onClick={() => {
+              setNavigation('answered')
+            }}>Answered Questions
+            </button>
+          </li>
+          <li>
+            <button disabled>New Question</button>
+          </li>
+          <li>
+            <button disabled>Leader Board</button>
+          </li>
         </ul>
       </div>
 
