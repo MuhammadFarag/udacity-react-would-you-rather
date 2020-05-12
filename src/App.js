@@ -29,6 +29,22 @@ function App() {
         .concat(question.optionTwo.votes)
         .includes(authenticatedUser.id))
 
+
+  const unAnsweredQuestions = () =>
+    questions.filter((question) =>
+      !question.optionOne.votes
+        .concat(question.optionTwo.votes)
+        .includes(authenticatedUser.id))
+
+  const displayQuestions = () => {
+    if(navigation === 'unanswered'){
+      return unAnsweredQuestions()
+    }
+    return answeredQuestions()
+
+  }
+
+
   if (authenticatedUser) {
     return <div>
       <div>
@@ -41,7 +57,7 @@ function App() {
       </div>
 
       <ol>
-        {answeredQuestions ().map((question) => (
+        {displayQuestions().map((question) => (
           <li key={question.id}>
             <ul>
               <li>{question.optionOne.text}</li>
