@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import {_getQuestions, _getUsers} from "./_DATA";
 import {Navigation} from "./components/Navigation";
 import {Question} from "./components/Question";
+import {ListItem} from "./components/ListItem";
 
 function App() {
   const [users, setUsers] = useState([])
@@ -64,18 +65,14 @@ function App() {
       <Navigation onClick={handleNavigation}/>
 
       <ol>
-        {displayQuestions().map((question) => (
-          <li key={question.id}>
-            <ul>
-              <li>{question.optionOne.text}</li>
-              <li>{question.optionTwo.text}</li>
-            </ul>
-            <button onClick={() => {
+        {displayQuestions().map((question) => {
+          let author = users[question.author];
+          return (
+            <ListItem key={question.id} author={author} question={question} onClick={() => {
               setActiveQuestion(question)
-            }}>Go to Question
-            </button>
-          </li>
-        ))}
+            }}/>
+          );
+        })}
       </ol>
 
       <ul>
