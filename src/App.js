@@ -7,6 +7,7 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   const [navigation, setNavigation] = useState('unanswered')
+  const [activeQuestion, setActiveQuestion] = useState(undefined)
   useEffect(() => {
     _getUsers().then((users) => {
       setUsers(Object.values(users))
@@ -37,13 +38,45 @@ function App() {
         .includes(authenticatedUser.id))
 
   const displayQuestions = () => {
-    if(navigation === 'unanswered'){
+    if (navigation === 'unanswered') {
       return unAnsweredQuestions()
     }
     return answeredQuestions()
 
   }
 
+  if (authenticatedUser && activeQuestion) {
+    return <div>
+      <div>
+        <ul>
+          <li>
+            <button onClick={() => {
+              setNavigation('unanswered')
+              setActiveQuestion(undefined)
+            }}>Unanswered Questions
+            </button>
+          </li>
+          <li>
+            <button onClick={() => {
+              setNavigation('answered')
+              setActiveQuestion(undefined)
+            }}>Answered Questions
+            </button>
+          </li>
+          <li>
+            <button disabled>New Question</button>
+          </li>
+          <li>
+            <button disabled>Leader Board</button>
+          </li>
+        </ul>
+      </div>
+      <ul>
+        <li>{activeQuestion.optionOne.text}</li>
+        <li>{activeQuestion.optionTwo.text}</li>
+      </ul>
+    </div>
+  }
 
   if (authenticatedUser) {
     return <div>
@@ -63,8 +96,12 @@ function App() {
               <li>{question.optionOne.text}</li>
               <li>{question.optionTwo.text}</li>
             </ul>
+            <button onClick={() => {
+              setActiveQuestion(question)
+            }}>Go to Question
+            </button>
           </li>
-          ))}
+        ))}
       </ol>
 
       <ul>
@@ -74,6 +111,7 @@ function App() {
         <li>
           <button onClick={() => {
             setAuthenticatedUser(undefined)
+            setActiveQuestion(undefined)
           }}>logout
           </button>
         </li>
