@@ -1,14 +1,12 @@
 import React from "react";
 
-function Login({users}) {
+function Login({users, onAuthentication}) {
   return <ul>
-    {users.map((user) => {
-      return (
+    {users.map((user) => (
         <li key={user.id}>
-          {user.name}
+          <button onClick={() => onAuthentication(user)}>{user.name}</button>
         </li>
-      )
-    })}
+      ))}
   </ul>;
 }
 
