@@ -15,9 +15,18 @@ function App() {
     setAuthenticatedUser(user)
   }
 
+  if (authenticatedUser){
+    return <div>
+      <ul>
+        <li>
+          Authenticated User: {authenticatedUser.name}
+        </li>
+      </ul>
+    </div>
+  }
+
   return (
     <div>
-      {authenticatedUser? <div>Authenticated User: {authenticatedUser.name}</div> : null}
       <Login users={users} onAuthentication={handleAuthentication}/>
     </div>
   );
