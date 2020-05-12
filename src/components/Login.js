@@ -1,7 +1,15 @@
 import React from "react";
 
-function Login() {
-  return <h1>Hello World</h1>;
+function Login({users}) {
+  return <ul>
+    {users.map((user) => {
+      return (
+        <li key={user.id}>
+          {user.name}
+        </li>
+      )
+    })}
+  </ul>;
 }
 
 export default Login;
