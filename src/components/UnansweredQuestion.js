@@ -1,5 +1,6 @@
 import * as PropTypes from "prop-types";
 import React, {useState} from "react";
+import {_saveQuestionAnswer} from "../_DATA";
 
 export function UnansweredQuestion({activeQuestion, author, activeUser}) {
   const [selectedOption, setSelectedOption] = useState("")
@@ -8,13 +9,22 @@ export function UnansweredQuestion({activeQuestion, author, activeUser}) {
     setSelectedOption(event.target.value)
   }
 
+  const handleSubmit = () => {
+    _saveQuestionAnswer({
+      authedUser: activeUser,
+      qid: activeQuestion.id,
+      answer: selectedOption
+    }).then(()=>{
+      console.log("Form submitted")
+    } )
+  }
+
   return <>
     <div>
       {author.name} Asked
     </div>
 
-    <form onSubmit={() => {
-    }}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>
           <input type="radio" value="optionOne" checked={selectedOption === "optionOne"} onChange={handleChange}/>
