@@ -4,6 +4,24 @@ import {_getQuestions, _getUsers} from "./_DATA";
 import {Navigation} from "./components/Navigation";
 import {Question} from "./components/Question";
 import {ListItem} from "./components/ListItem";
+import * as PropTypes from "prop-types";
+
+function Logout(props) {
+  return <ul>
+    <li>
+      Authenticated User: {props.authenticatedUser.name}
+    </li>
+    <li>
+      <button onClick={props.onLogout}>logout
+      </button>
+    </li>
+  </ul>;
+}
+
+Logout.propTypes = {
+  authenticatedUser: PropTypes.any,
+  onLogout: PropTypes.func
+};
 
 function App() {
   const [users, setUsers] = useState([])
@@ -53,9 +71,15 @@ function App() {
     setActiveQuestion(undefined)
   }
 
+  function handleLogout() {
+    setAuthenticatedUser(undefined)
+    setActiveQuestion(undefined)
+  }
+
   if (authenticatedUser && activeQuestion) {
     return <div>
       <Navigation onClick={handleNavigation}/>
+      <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
       <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}/>
     </div>
   }
@@ -63,6 +87,7 @@ function App() {
   if (authenticatedUser) {
     return <div>
       <Navigation onClick={handleNavigation}/>
+      <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
 
       <ol>
         {displayQuestions().map((question) => {
@@ -75,18 +100,6 @@ function App() {
         })}
       </ol>
 
-      <ul>
-        <li>
-          Authenticated User: {authenticatedUser.name}
-        </li>
-        <li>
-          <button onClick={() => {
-            setAuthenticatedUser(undefined)
-            setActiveQuestion(undefined)
-          }}>logout
-          </button>
-        </li>
-      </ul>
     </div>
   }
 
