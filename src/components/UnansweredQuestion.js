@@ -2,7 +2,7 @@ import * as PropTypes from "prop-types";
 import React, {useState} from "react";
 import {_saveQuestionAnswer} from "../_DATA";
 
-export function UnansweredQuestion({activeQuestion, author, activeUser}) {
+export function UnansweredQuestion({activeQuestion, author, activeUser, onAnswered}) {
   const [selectedOption, setSelectedOption] = useState("")
 
   const handleChange = (event) => {
@@ -16,7 +16,7 @@ export function UnansweredQuestion({activeQuestion, author, activeUser}) {
       qid: activeQuestion.id,
       answer: selectedOption
     }).then(() => {
-      console.log("Form submitted")
+      onAnswered()
     })
   }
 
@@ -46,5 +46,6 @@ export function UnansweredQuestion({activeQuestion, author, activeUser}) {
 UnansweredQuestion.propTypes = {
   name: PropTypes.any,
   activeUser: PropTypes.any,
-  activeQuestion: PropTypes.any
+  activeQuestion: PropTypes.any,
+  onAnswered: PropTypes.func
 };

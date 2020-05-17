@@ -29,17 +29,18 @@ function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   const [navigation, setNavigation] = useState('unanswered')
   const [activeQuestion, setActiveQuestion] = useState(undefined)
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     _getUsers().then((users) => {
       setUsers(users)
     })
-  }, [])
+  }, [refresh])
 
   useEffect(() => {
     _getQuestions().then((questions) => {
       setQuestions(Object.values(questions))
     })
-  }, [])
+  }, [refresh])
 
   const handleAuthentication = (user) => {
     setAuthenticatedUser(user)
@@ -80,7 +81,7 @@ function App() {
     return <div>
       <Navigation onClick={handleNavigation}/>
       <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}/>
+      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser} onAnswered={setRefresh}/>
     </div>
   }
 
