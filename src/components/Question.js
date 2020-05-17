@@ -11,7 +11,7 @@ export function Question({activeQuestion, author, activeUser}) {
   const percentageOfOptionOneAnswers = (numberOfOptionOneAnswers / numberOfOptions) * 100
   const percentageOfOptionTwoAnswers = (numberOfOptionTwoAnswers / numberOfOptions) * 100
 
-  if(activeUserAnsweredOptionOne || activeUserAnsweredOptionTwo){
+  if (activeUserAnsweredOptionOne || activeUserAnsweredOptionTwo) {
     return <>
       <div>
         {author.name} Asked
@@ -26,10 +26,23 @@ export function Question({activeQuestion, author, activeUser}) {
     <div>
       {author.name} Asked
     </div>
-    <ul>
-      <li>{activeQuestion.optionOne.text}</li>
-      <li>{activeQuestion.optionTwo.text}</li>
-    </ul>
+
+    <form onSubmit={() => {
+    }}>
+      <div>
+        <label>
+          <input type="radio" value="optionOne"/>
+          {activeQuestion.optionOne.text}
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" value="optionTwo"/>
+          {activeQuestion.optionTwo.text}
+        </label>
+      </div>
+      <input type="submit" value="Submit"/>
+    </form>
   </>;
 }
 
