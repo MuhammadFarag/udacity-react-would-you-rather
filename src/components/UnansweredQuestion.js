@@ -9,14 +9,15 @@ export function UnansweredQuestion({activeQuestion, author, activeUser}) {
     setSelectedOption(event.target.value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
     _saveQuestionAnswer({
-      authedUser: activeUser,
+      authedUser: activeUser.id,
       qid: activeQuestion.id,
       answer: selectedOption
-    }).then(()=>{
+    }).then(() => {
       console.log("Form submitted")
-    } )
+    })
   }
 
   return <>
