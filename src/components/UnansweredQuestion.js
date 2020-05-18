@@ -1,9 +1,8 @@
 import * as PropTypes from "prop-types";
 import React, {useState} from "react";
-import {_saveQuestionAnswer} from "../_DATA";
 import {withRouter} from "react-router-dom";
 
-function UnansweredQuestion({activeUser, id, questions, onAnswered, history}) {
+function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
   const [selectedOption, setSelectedOption] = useState("")
   const activeQuestion = questions[id]
 
@@ -14,13 +13,10 @@ function UnansweredQuestion({activeUser, id, questions, onAnswered, history}) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    _saveQuestionAnswer({
+    onAnswered({
       authedUser: activeUser.id,
       qid: activeQuestion.id,
       answer: selectedOption
-    }).then(() => {
-      onAnswered()
-      history.push(`/answered/${id}`)
     })
   }
 
