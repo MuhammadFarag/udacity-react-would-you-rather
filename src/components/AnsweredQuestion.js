@@ -1,7 +1,8 @@
 import * as PropTypes from "prop-types";
 import React from "react";
 
-export function AnsweredQuestion({activeQuestion, author, activeUser}) {
+export function AnsweredQuestion({activeUser, id, questions}) {
+  const activeQuestion = questions[id]
 
   const activeUserAnsweredOptionOne = activeQuestion.optionOne.votes.includes(activeUser.id)
   const activeUserAnsweredOptionTwo = activeQuestion.optionTwo.votes.includes(activeUser.id)
@@ -14,7 +15,7 @@ export function AnsweredQuestion({activeQuestion, author, activeUser}) {
 
   return <>
     <div>
-      {author.name} Asked
+      {activeQuestion.author.name} Asked
     </div>
     <ul>
       <li>{activeQuestion.optionOne.text} {percentageOfOptionOneAnswers}% {activeUserAnsweredOptionOne ? "*" : null}</li>

@@ -6,14 +6,15 @@ import {Question} from "./components/Question";
 import ListItem from "./components/ListItem";
 import {BrowserRouter, Route} from "react-router-dom";
 import Logout from "./components/Logout";
+import {AnsweredQuestion} from "./components/AnsweredQuestion";
 
 
-function QuestionList({questions, users}) {
+function QuestionList({questions, users, path}) {
 
   return <div>
     <ol>
       {questions.map((question) => (
-        <ListItem key={question.id} author={users[question.author]} question={question} onClick={() => {
+        <ListItem key={question.id} author={users[question.author]} question={question} path={path} onClick={() => {
         }}/>
       ))}
     </ol>
@@ -79,9 +80,17 @@ function App() {
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-          <QuestionList questions={answeredQuestions()} users={users}/>
+          <QuestionList questions={answeredQuestions()} users={users} path='answered'/>
         </div>
       )}/>
+      <Route exact path='/answered/:id' render={({match: {params: {id}}}) => (
+        <div>
+          <Navigation/>
+          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <AnsweredQuestion activeUser={authenticatedUser} id={id} questions={questions}/>
+        </div>
+      )}/>
+
 
       <Route exact path='/question' render={() => (
         <div>
