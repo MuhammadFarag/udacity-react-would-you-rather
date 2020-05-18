@@ -7,7 +7,7 @@ function Login({users, onAuthentication, history}) {
         <li key={user.id}>
           <button onClick={() => {
             onAuthentication(user)
-            history.push('/unanswered')}
+            history.push('/unanswered-questions')}
           }>{user.name}</button>
         </li>
       ))}

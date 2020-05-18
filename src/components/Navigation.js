@@ -5,12 +5,12 @@ export function Navigation() {
   return <div>
     <ul>
       <li>
-        <Link to='unanswered'>
+        <Link to='unanswered-questions'>
           Unanswered Questions
         </Link>
       </li>
       <li>
-        <Link to='answered'>
+        <Link to='answered-questions'>
           Answered Questions
         </Link>
       </li>

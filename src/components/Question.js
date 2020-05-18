@@ -1,7 +1,7 @@
 import * as PropTypes from "prop-types";
 import React from "react";
 import {AnsweredQuestion} from "./AnsweredQuestion";
-import {UnansweredQuestion} from "./UnansweredQuestion";
+import UnansweredQuestion from "./UnansweredQuestion";
 
 export function Question({activeQuestion, author, activeUser, onAnswered}) {
   const handleAnswered = () => {
