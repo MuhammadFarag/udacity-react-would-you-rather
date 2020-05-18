@@ -3,7 +3,8 @@ import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 
 function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
-  const [selectedOption, setSelectedOption] = useState("")
+  const [selectedOption, setSelectedOption] = useState("");
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const activeQuestion = questions[id]
 
 
@@ -13,6 +14,7 @@ function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    setSubmitDisabled(true);
     onAnswered({
       authedUser: activeUser.id,
       qid: activeQuestion.id,
@@ -38,7 +40,7 @@ function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
           {activeQuestion.optionTwo.text}
         </label>
       </div>
-      <input type="submit" value="Submit"/>
+      <input type="submit" value="Submit" disabled={submitDisabled}/>
     </form>
   </>;
 }
