@@ -3,25 +3,9 @@ import Login from "./components/Login";
 import {_getQuestions, _getUsers} from "./_DATA";
 import {Navigation} from "./components/Navigation";
 import {Question} from "./components/Question";
-import {ListItem} from "./components/ListItem";
-import * as PropTypes from "prop-types";
-import {BrowserRouter, Link, Route} from "react-router-dom";
-
-function Logout(props) {
-  return <ul>
-    <li>
-      Authenticated User: {props.authenticatedUser.name}
-    </li>
-    <li>
-      <Link to='/' onClick={props.onLogout}>logout</Link>
-    </li>
-  </ul>;
-}
-
-Logout.propTypes = {
-  authenticatedUser: PropTypes.any,
-  onLogout: PropTypes.func
-};
+import ListItem from "./components/ListItem";
+import {BrowserRouter, Route} from "react-router-dom";
+import Logout from "./components/Logout";
 
 function App() {
   const [users, setUsers] = useState([])
@@ -63,23 +47,14 @@ function App() {
     setActiveQuestion(undefined)
   }
 
-  if (authenticatedUser && activeQuestion) {
-    return <div>
-      <Navigation/>
-      <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}
-                onAnswered={setRefresh}/>
-    </div>
-  }
-
 
   return (
     <BrowserRouter>
-      <Route exact path='/' render={ () => (
+      <Route exact path='/' render={() => (
         <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
-      ) }/>
+      )}/>
 
-      <Route exact path='/unanswered' render={ () => (
+      <Route exact path='/unanswered' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
@@ -96,8 +71,8 @@ function App() {
           </ol>
 
         </div>
-      ) }/>
-      <Route exact path='/answered' render={ () => (
+      )}/>
+      <Route exact path='/answered' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
@@ -114,7 +89,16 @@ function App() {
           </ol>
 
         </div>
-      ) }/>
+      )}/>
+
+      <Route exact path='/question' render={() => (
+        <div>
+          <Navigation/>
+          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}
+                    onAnswered={setRefresh}/>
+        </div>
+      )}/>
 
     </BrowserRouter>
   );

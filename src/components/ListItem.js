@@ -1,15 +1,15 @@
 import * as PropTypes from "prop-types";
 import React from "react";
+import {Link, withRouter} from "react-router-dom";
 
-export function ListItem({author, onClick, question}) {
+function ListItem({author, onClick, question}) {
   return <li>
     {author.name} Asked:
     <ul>
       <li>{question.optionOne.text}</li>
       <li>{question.optionTwo.text}</li>
     </ul>
-    <button onClick={onClick}>View
-    </button>
+    <Link to='/question' onClick={onClick}>View</Link>
   </li>;
 }
 
@@ -18,3 +18,5 @@ ListItem.propTypes = {
   question: PropTypes.any,
   onClick: PropTypes.func
 };
+
+export default withRouter(ListItem)
