@@ -5,7 +5,7 @@ import {Navigation} from "./components/Navigation";
 import {Question} from "./components/Question";
 import {ListItem} from "./components/ListItem";
 import * as PropTypes from "prop-types";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Link, Route} from "react-router-dom";
 
 function Logout(props) {
   return <ul>
@@ -13,8 +13,7 @@ function Logout(props) {
       Authenticated User: {props.authenticatedUser.name}
     </li>
     <li>
-      <button onClick={props.onLogout}>logout
-      </button>
+      <Link to='/' onClick={props.onLogout}>logout</Link>
     </li>
   </ul>;
 }
@@ -28,7 +27,6 @@ function App() {
   const [users, setUsers] = useState([])
   const [questions, setQuestions] = useState([])
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
-  const [navigation, setNavigation] = useState('unanswered')
   const [activeQuestion, setActiveQuestion] = useState(undefined)
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
@@ -60,11 +58,6 @@ function App() {
         .concat(question.optionTwo.votes)
         .includes(authenticatedUser.id))
 
-  const handleNavigation = (nav) => {
-    setNavigation(nav)
-    setActiveQuestion(undefined)
-  }
-
   function handleLogout() {
     setAuthenticatedUser(undefined)
     setActiveQuestion(undefined)
@@ -72,7 +65,7 @@ function App() {
 
   if (authenticatedUser && activeQuestion) {
     return <div>
-      <Navigation onClick={handleNavigation}/>
+      <Navigation/>
       <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
       <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}
                 onAnswered={setRefresh}/>
@@ -88,7 +81,7 @@ function App() {
 
       <Route exact path='/unanswered' render={ () => (
         <div>
-          <Navigation onClick={handleNavigation}/>
+          <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
 
           <ol>
@@ -106,7 +99,7 @@ function App() {
       ) }/>
       <Route exact path='/answered' render={ () => (
         <div>
-          <Navigation onClick={handleNavigation}/>
+          <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
 
           <ol>
