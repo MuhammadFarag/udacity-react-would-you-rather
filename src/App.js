@@ -5,6 +5,7 @@ import {Navigation} from "./components/Navigation";
 import {Question} from "./components/Question";
 import {ListItem} from "./components/ListItem";
 import * as PropTypes from "prop-types";
+import {BrowserRouter, Route} from "react-router-dom";
 
 function Logout(props) {
   return <ul>
@@ -59,14 +60,6 @@ function App() {
         .concat(question.optionTwo.votes)
         .includes(authenticatedUser.id))
 
-  const displayQuestions = () => {
-    if (navigation === 'unanswered') {
-      return unAnsweredQuestions()
-    }
-    return answeredQuestions()
-
-  }
-
   const handleNavigation = (nav) => {
     setNavigation(nav)
     setActiveQuestion(undefined)
@@ -81,33 +74,56 @@ function App() {
     return <div>
       <Navigation onClick={handleNavigation}/>
       <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser} onAnswered={setRefresh}/>
+      <Question author={users[activeQuestion.author]} activeQuestion={activeQuestion} activeUser={authenticatedUser}
+                onAnswered={setRefresh}/>
     </div>
   }
 
-  if (authenticatedUser) {
-    return <div>
-      <Navigation onClick={handleNavigation}/>
-      <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-
-      <ol>
-        {displayQuestions().map((question) => {
-          let author = users[question.author];
-          return (
-            <ListItem key={question.id} author={author} question={question} onClick={() => {
-              setActiveQuestion(question)
-            }}/>
-          );
-        })}
-      </ol>
-
-    </div>
-  }
 
   return (
-    <div>
-      <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
-    </div>
+    <BrowserRouter>
+      <Route exact path='/' render={ () => (
+        <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
+      ) }/>
+
+      <Route exact path='/unanswered' render={ () => (
+        <div>
+          <Navigation onClick={handleNavigation}/>
+          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+
+          <ol>
+            {unAnsweredQuestions().map((question) => {
+              let author = users[question.author];
+              return (
+                <ListItem key={question.id} author={author} question={question} onClick={() => {
+                  setActiveQuestion(question)
+                }}/>
+              );
+            })}
+          </ol>
+
+        </div>
+      ) }/>
+      <Route exact path='/answered' render={ () => (
+        <div>
+          <Navigation onClick={handleNavigation}/>
+          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+
+          <ol>
+            {answeredQuestions().map((question) => {
+              let author = users[question.author];
+              return (
+                <ListItem key={question.id} author={author} question={question} onClick={() => {
+                  setActiveQuestion(question)
+                }}/>
+              );
+            })}
+          </ol>
+
+        </div>
+      ) }/>
+
+    </BrowserRouter>
   );
 }
 
