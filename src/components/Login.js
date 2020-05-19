@@ -5,7 +5,7 @@ import {authenticateUser} from "../redux-stuff";
 
 function Login({users, history}) {
   const dispatch = useDispatch()
-  const handleAUthentication = (user) => {
+  const handleAuthentication = (user) => {
     dispatch(authenticateUser(user))
   }
 
@@ -13,7 +13,7 @@ function Login({users, history}) {
     {users.map((user) => (
       <li key={user.id}>
         <button onClick={() => {
-          handleAUthentication(user)
+          handleAuthentication(user)
           history.push('/unanswered-questions')
         }
         }>{user.name}</button>
