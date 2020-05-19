@@ -64,7 +64,7 @@ function App({history}) {
 
     <Switch>
       <Route exact path='/' render={() => (
-        <Login users={Object.values(users)}/>
+        <Login/>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>

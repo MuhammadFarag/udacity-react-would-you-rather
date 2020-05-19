@@ -1,10 +1,12 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {authenticateUser} from "../redux-stuff";
 
-function Login({users, history}) {
+function Login({history}) {
   const dispatch = useDispatch()
+  const users = useSelector(state => Object.values(state.users))
+
   const handleAuthentication = (user) => {
     dispatch(authenticateUser(user))
   }
