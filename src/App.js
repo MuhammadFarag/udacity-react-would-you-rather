@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import Login from "./components/Login";
-import {Navigation} from "./components/Navigation";
 import {Route, Switch, withRouter} from "react-router-dom";
 import {answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
