@@ -74,7 +74,7 @@ function App() {
         <div>
           <Navigation/>
           <Logout/>
-          <AnsweredQuestion activeUser={authenticatedUser} id={id} questions={questions}/>
+          <AnsweredQuestion id={id}/>
         </div>
       )}/>
       <Route exact path='/unanswered/:id' render={({match: {params: {id}}}) => (

@@ -1,7 +1,10 @@
 import * as PropTypes from "prop-types";
 import React from "react";
+import {useSelector} from "react-redux";
 
-export function AnsweredQuestion({activeUser, id, questions}) {
+export function AnsweredQuestion({id}) {
+  const questions = useSelector(state => state.questions)
+  const activeUser = useSelector(state => state.authentication.user)
   const activeQuestion = questions[id]
 
   const activeUserAnsweredOptionOne = activeQuestion.optionOne.votes.includes(activeUser.id)
