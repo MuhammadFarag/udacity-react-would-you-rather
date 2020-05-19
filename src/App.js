@@ -56,6 +56,11 @@ function App() {
           <Question id={id}/>
         </Page>
       )}/>
+      <Route path='/' render={() => (
+        <Page>
+          <div>The page you are looking for can't be found</div>
+        </Page>
+      )}/>
     </Switch>
   );
 }
