@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import Login from "./components/Login";
 import {Navigation} from "./components/Navigation";
 import {Route, Switch, withRouter} from "react-router-dom";
-import Logout from "./components/Logout";
 import {answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
@@ -30,11 +29,9 @@ function App() {
         <Login/>
       )}/>
       <Route exact path='/add' render={() => (
-        <div>
-          <Navigation/>
-          <Logout/>
+        <Page>
           <AddQuestion/>
-        </div>
+        </Page>
       )}/>
       <Route exact path='/leaderboard' render={() => (
         <Page>
