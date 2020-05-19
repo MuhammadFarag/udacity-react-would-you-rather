@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {_saveQuestion} from "../_DATA";
-import {addQuestion} from "../redux-stuff";
 import {withRouter} from "react-router-dom";
+import {addQuestion} from "../questions/actions";
 
 function AddQuestion({history}) {
   const activeUser = useSelector(state => state.authentication.user)

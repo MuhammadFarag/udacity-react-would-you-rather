@@ -2,7 +2,7 @@ import React from "react";
 import {Link, withRouter} from "react-router-dom";
 import {Nav, Navbar} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../redux-stuff";
+import {logout} from "../authentication/actions";
 
 function Navigation({history}) {
   const authenticatedUser = useSelector(state => state.authentication.user)

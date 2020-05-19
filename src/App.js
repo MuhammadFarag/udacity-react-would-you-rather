@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
 import Login from "./components/Login";
 import {Route, Switch, withRouter} from "react-router-dom";
-import {answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
 import AddQuestion from "./components/AddQuestion";
 import {LeaderBoard} from "./components/LeaderBoard";
 import {Page} from "./components/Page";
+import {handleLoadQuestions} from "./questions/actions";
+import {handleLoadUsers} from "./users/actions";
+import {answeredQuestions, unAnsweredQuestions} from "./questions/utils";
 
 function App() {
   const questions = useSelector(state => state.questions)

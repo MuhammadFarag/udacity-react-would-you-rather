@@ -2,8 +2,8 @@ import * as PropTypes from "prop-types";
 import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {handleAnswerQuestion} from "../redux-stuff";
 import Media from "react-bootstrap/Media";
+import {handleAnswerQuestion} from "../questions/actions";
 
 function UnansweredQuestion({id}) {
   const questions = useSelector(state => state.questions)
