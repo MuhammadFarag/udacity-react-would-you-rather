@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Login from "./components/Login";
-import {_getQuestions, _saveQuestionAnswer} from "./_DATA";
 import {Navigation} from "./components/Navigation";
 import ListItem from "./components/ListItem";
 import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {handleLoadQuestions, handleLoadUsers, receiveQuestionsAction} from "./redux-stuff";
+import {handleAnswerQuestion, handleLoadQuestions, handleLoadUsers} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -43,13 +42,9 @@ function App({history}) {
   }
 
   const handleAnswered = (event) => {
-    _saveQuestionAnswer(event).then(() => {
-      _getQuestions().then((questions) => {
-        dispatch(receiveQuestionsAction(questions))
-      }).then(() => {
-        history.push(`/answered/${event.qid}`)
-      })
-    })
+    dispatch(handleAnswerQuestion(event, () => {
+      history.push(`/answered/${event.qid}`)
+    }))
   }
   const answeredQuestions = () =>
     Object.values(questions).filter((question) =>
