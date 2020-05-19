@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Login from "./components/Login";
 import {Navigation} from "./components/Navigation";
 import {Route, Switch, withRouter} from "react-router-dom";
@@ -11,6 +11,9 @@ import {Question} from "./components/Question";
 
 function AddQuestion() {
   const activeUser = useSelector(state => state.authentication.user)
+  const [optionOne, setOptionOne] = useState("")
+  const [optionTwo, setOptionTwo] = useState("")
+
   const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
@@ -30,6 +33,14 @@ function AddQuestion() {
     }, activeUser))
 
   }
+
+  const handleOptionOne = (event) => {
+    setOptionOne(event.target.value)
+  }
+
+  const handleOptionTwo = (event) => {
+    setOptionTwo(event.target.value)
+  }
   return <div>
     <div>
       {activeUser.name} Asked
@@ -38,12 +49,12 @@ function AddQuestion() {
     <form onSubmit={handleSubmit}>
       <div>
         <label>
-          <input type="text" name="optionOne"/>
+          <input type="text" name="optionOne" value={optionOne} onChange={handleOptionOne}/>
         </label>
       </div>
       <div>
         <label>
-          <input type="text" name="optionTwo"/>
+          <input type="text" name="optionTwo" value={optionTwo} onChange={handleOptionTwo}/>
         </label>
       </div>
       <input type="submit" value="Submit"/>
