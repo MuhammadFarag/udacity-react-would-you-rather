@@ -41,12 +41,14 @@ function AddQuestion({history}) {
       <div className="form-group">
         <div>
           <label>
-            <input className="form-control" type="text" name="optionOne" value={optionOne} onChange={handleOptionOne}/>
+            <input className="form-control" type="text" name="optionOne" value={optionOne} onChange={handleOptionOne}
+                   required/>
           </label>
         </div>
         <div>
           <label>
-            <input className="form-control" type="text" name="optionTwo" value={optionTwo} onChange={handleOptionTwo}/>
+            <input className="form-control" type="text" name="optionTwo" value={optionTwo} onChange={handleOptionTwo}
+                   required/>
           </label>
         </div>
         <input type="submit" className="btn btn-primary" value="Submit"/>
