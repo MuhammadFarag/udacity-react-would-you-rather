@@ -7,6 +7,7 @@ const RECEIVE_QUESTIONS_DATA = 'RECEIVE_QUESTIONS_DATA';
 const ANSWER_QUESTION = 'ANSWER_QUESTION'
 const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
+const ADD_QUESTION = 'ADD_QUESTION'
 
 export function authentication(state = {}, action) {
   switch (action.type) {
@@ -48,6 +49,15 @@ export function users(state = {}, action) {
           }
         }
       }
+    case ADD_QUESTION:
+      const {question, author} = action
+      return {
+        ...state,
+        [author.id]: {
+          ...state[author.id],
+          questions: state[author.id].questions.concat([question.id])
+        }
+      }
     default:
       return state
   }
@@ -70,6 +80,10 @@ export function questions(state = {}, action) {
           }
         }
       }
+    case ADD_QUESTION:
+      const {question} = action
+      state[question.id] = question
+      return state
     default:
       return state
   }
@@ -96,6 +110,15 @@ export function answerQuestion(event) {
     type: ANSWER_QUESTION,
     ...event
   }
+}
+
+export function addQuestion(question, author) {
+  return {
+    type: ADD_QUESTION,
+    question,
+    author
+  }
+
 }
 
 export function handleLoadQuestions() {

@@ -3,7 +3,7 @@ import Login from "./components/Login";
 import {Navigation} from "./components/Navigation";
 import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
-import {answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
+import {addQuestion, answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
@@ -11,12 +11,31 @@ import {Question} from "./components/Question";
 
 function AddQuestion() {
   const activeUser = useSelector(state => state.authentication.user)
+  const dispatch = useDispatch()
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    dispatch(addQuestion({
+      id: 'baba-boya',
+      author: activeUser.id,
+      timestamp: 1467166872634,
+      optionOne: {
+        votes: [],
+        text: '*** My Awesome Option One',
+      },
+      optionTwo: {
+        votes: [],
+        text: '*** My Awesome Option two'
+      }
+    }, activeUser))
+
+  }
   return <div>
     <div>
       {activeUser.name} Asked
     </div>
 
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>
           <input type="text" name="optionOne"/>
