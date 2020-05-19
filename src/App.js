@@ -6,7 +6,7 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {handleAnswerQuestion, handleLoadQuestions, handleLoadUsers, logout} from "./redux-stuff";
+import {handleAnswerQuestion, handleLoadQuestions, handleLoadUsers} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -55,11 +55,6 @@ function App({history}) {
         .concat(question.optionTwo.votes)
         .includes(authenticatedUser.id))
 
-  function handleLogout() {
-    dispatch(logout())
-  }
-
-
   return (
 
     <Switch>
@@ -69,28 +64,28 @@ function App({history}) {
       <Route exact path='/unanswered-questions' render={() => (
         <div>
           <Navigation/>
-          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <Logout/>
           <QuestionList questions={unAnsweredQuestions()} users={users} path='unanswered'/>
         </div>
       )}/>
       <Route exact path='/answered-questions' render={() => (
         <div>
           <Navigation/>
-          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <Logout/>
           <QuestionList questions={answeredQuestions()} users={users} path='answered'/>
         </div>
       )}/>
       <Route exact path='/answered/:id' render={({match: {params: {id}}}) => (
         <div>
           <Navigation/>
-          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <Logout/>
           <AnsweredQuestion activeUser={authenticatedUser} id={id} questions={questions}/>
         </div>
       )}/>
       <Route exact path='/unanswered/:id' render={({match: {params: {id}}}) => (
         <div>
           <Navigation/>
-          <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
+          <Logout/>
           <UnansweredQuestion activeUser={authenticatedUser} id={id} questions={questions} onAnswered={handleAnswered}/>
         </div>
       )}/>
