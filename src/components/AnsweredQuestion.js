@@ -34,12 +34,12 @@ export function AnsweredQuestion({id}) {
         <div>Would you rather</div>
         <div className="font-weight-bold">{activeQuestion.optionOne.text}{'? '}
           <Badge variant="success">{percentageOfOptionOneAnswers}% </Badge>{' '}
-          <Badge variant="secondary">{numberOfOptionOneAnswers}</Badge>{activeUserAnsweredOptionOne ? "*" : null}
+          <Badge variant="secondary">{numberOfOptionOneAnswers}</Badge>{activeUserAnsweredOptionOne ? "✔" : null}
         </div>
         <div>or</div>
         <div className="font-weight-bold">{activeQuestion.optionTwo.text}{'? '}
           <Badge variant="success">{percentageOfOptionTwoAnswers}% </Badge>{' '}
-          <Badge variant="secondary">{numberOfOptionTwoAnswers}</Badge>{activeUserAnsweredOptionTwo ? "*" : null}
+          <Badge variant="secondary">{numberOfOptionTwoAnswers}</Badge>{activeUserAnsweredOptionTwo ? "✔" : null}
         </div>
       </Media.Body>
     </Media>
