@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
 import AddQuestion from "./components/AddQuestion";
-
+import {LeaderBoard} from "./components/LeaderBoard";
 
 function App() {
   const questions = useSelector(state => state.questions)
@@ -33,6 +33,13 @@ function App() {
           <Navigation/>
           <Logout/>
           <AddQuestion/>
+        </div>
+      )}/>
+      <Route exact path='/leaderboard' render={() => (
+        <div>
+          <Navigation/>
+          <Logout/>
+          <LeaderBoard/>
         </div>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (

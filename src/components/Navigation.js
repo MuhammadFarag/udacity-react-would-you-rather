@@ -20,7 +20,9 @@ export function Navigation() {
         </Link>
       </li>
       <li>
-        <button disabled>Leader Board</button>
+        <Link to='/leaderboard'>
+          Leader Board
+        </Link>
       </li>
     </ul>
   </div>;
