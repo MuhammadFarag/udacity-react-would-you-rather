@@ -33,22 +33,24 @@ function AddQuestion({history}) {
     setOptionTwo(event.target.value)
   }
   return <div>
-    <div>
+    <h5>
       {activeUser.name} Asked
-    </div>
+    </h5>
 
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          <input type="text" name="optionOne" value={optionOne} onChange={handleOptionOne}/>
-        </label>
+      <div className="form-group">
+        <div>
+          <label>
+            <input className="form-control" type="text" name="optionOne" value={optionOne} onChange={handleOptionOne}/>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input className="form-control" type="text" name="optionTwo" value={optionTwo} onChange={handleOptionTwo}/>
+          </label>
+        </div>
+        <input type="submit" className="btn btn-primary" value="Submit"/>
       </div>
-      <div>
-        <label>
-          <input type="text" name="optionTwo" value={optionTwo} onChange={handleOptionTwo}/>
-        </label>
-      </div>
-      <input type="submit" value="Submit"/>
     </form>
   </div>
 }
