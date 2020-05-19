@@ -8,6 +8,10 @@ export function Question({id}) {
   const activeUser = useSelector(state => state.authentication.user)
   const activeQuestion = questions[id]
 
+  if (!activeQuestion) {
+    return <div>Question can't be found</div>
+  }
+
   const activeUserAnsweredOptionOne = activeQuestion.optionOne.votes.includes(activeUser.id)
   const activeUserAnsweredOptionTwo = activeQuestion.optionTwo.votes.includes(activeUser.id)
   if (activeUserAnsweredOptionOne || activeUserAnsweredOptionTwo) {
