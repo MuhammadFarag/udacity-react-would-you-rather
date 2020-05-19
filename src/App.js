@@ -25,13 +25,11 @@ function QuestionList({questions, users, path}) {
 }
 
 function App({history, store}) {
-  const [users, setUsers] = useState([])
   const [questions, setQuestions] = useState([])
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   useEffect(() => {
     _getUsers().then((users) => {
       store.dispatch(receiveUsersAction(users))
-      setUsers(users)
     })
   }, [store])
 
@@ -77,20 +75,20 @@ function App({history, store}) {
 
     <Switch>
       <Route exact path='/' render={() => (
-        <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
+        <Login users={Object.values(store.getState().users)} onAuthentication={handleAuthentication}/>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-          <QuestionList questions={unAnsweredQuestions()} users={users} path='unanswered'/>
+          <QuestionList questions={unAnsweredQuestions()} users={store.getState().users} path='unanswered'/>
         </div>
       )}/>
       <Route exact path='/answered-questions' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-          <QuestionList questions={answeredQuestions()} users={users} path='answered'/>
+          <QuestionList questions={answeredQuestions()} users={store.getState().users} path='answered'/>
         </div>
       )}/>
       <Route exact path='/answered/:id' render={({match: {params: {id}}}) => (
