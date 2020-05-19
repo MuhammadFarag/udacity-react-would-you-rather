@@ -7,7 +7,7 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {handleLoadUsers, receiveQuestionsAction} from "./redux-stuff";
+import {handleLoadQuestions, handleLoadUsers, receiveQuestionsAction} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -35,9 +35,7 @@ function App({history}) {
   }, [dispatch])
 
   useEffect(() => {
-    _getQuestions().then((questions) => {
-      dispatch(receiveQuestionsAction(questions))
-    })
+    dispatch(handleLoadQuestions())
   }, [dispatch])
 
   const handleAuthentication = (user) => {
