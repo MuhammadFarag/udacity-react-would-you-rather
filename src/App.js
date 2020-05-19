@@ -7,6 +7,7 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
+import {receiveQuestionsAction, receiveUsersAction} from "./redux-stuff";
 
 
 function QuestionList({questions, users, path}) {
@@ -23,21 +24,23 @@ function QuestionList({questions, users, path}) {
 
 }
 
-function App({history}) {
+function App({history, store}) {
   const [users, setUsers] = useState([])
   const [questions, setQuestions] = useState([])
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   useEffect(() => {
     _getUsers().then((users) => {
+      store.dispatch(receiveUsersAction(users))
       setUsers(users)
     })
-  }, [])
+  }, [store])
 
   useEffect(() => {
     _getQuestions().then((questions) => {
+      store.dispatch(receiveQuestionsAction(questions))
       setQuestions(questions)
     })
-  }, [])
+  }, [store])
 
   const handleAuthentication = (user) => {
     setAuthenticatedUser(user)
