@@ -24,11 +24,11 @@ function AddQuestion() {
       timestamp: 1467166872634,
       optionOne: {
         votes: [],
-        text: '*** My Awesome Option One',
+        text: optionOne,
       },
       optionTwo: {
         votes: [],
-        text: '*** My Awesome Option two'
+        text: optionTwo
       }
     }, activeUser))
 
