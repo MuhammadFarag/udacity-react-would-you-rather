@@ -1,4 +1,4 @@
-import {Navigation} from "./Navigation";
+import Navigation from "./Navigation";
 import React from "react";
 import {Col, Container} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
