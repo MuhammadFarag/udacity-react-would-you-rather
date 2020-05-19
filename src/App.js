@@ -8,6 +8,7 @@ import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
 import {receiveQuestionsAction, receiveUsersAction} from "./redux-stuff";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function QuestionList({questions, users, path}) {
@@ -25,18 +26,19 @@ function QuestionList({questions, users, path}) {
 }
 
 function App({history, store}) {
-  const [questions, setQuestions] = useState([])
+  const users = useSelector(state => state.users)
+  const questions = useSelector(state => state.questions)
+  const dispatch = useDispatch()
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   useEffect(() => {
     _getUsers().then((users) => {
-      store.dispatch(receiveUsersAction(users))
+      dispatch(receiveUsersAction(users))
     })
   }, [store])
 
   useEffect(() => {
     _getQuestions().then((questions) => {
-      store.dispatch(receiveQuestionsAction(questions))
-      setQuestions(questions)
+      dispatch(receiveQuestionsAction(questions))
     })
   }, [store])
 
@@ -47,7 +49,9 @@ function App({history, store}) {
   const handleAnswered = (event) => {
     _saveQuestionAnswer(event).then(() => {
       _getQuestions().then((questions) => {
-        setQuestions(questions)
+        dispatch(receiveQuestionsAction(questions))
+
+        // setQuestions(questions)
       }).then(() => {
         history.push(`/answered/${event.qid}`)
       })
@@ -75,20 +79,20 @@ function App({history, store}) {
 
     <Switch>
       <Route exact path='/' render={() => (
-        <Login users={Object.values(store.getState().users)} onAuthentication={handleAuthentication}/>
+        <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-          <QuestionList questions={unAnsweredQuestions()} users={store.getState().users} path='unanswered'/>
+          <QuestionList questions={unAnsweredQuestions()} users={users} path='unanswered'/>
         </div>
       )}/>
       <Route exact path='/answered-questions' render={() => (
         <div>
           <Navigation/>
           <Logout authenticatedUser={authenticatedUser} onLogout={handleLogout}/>
-          <QuestionList questions={answeredQuestions()} users={store.getState().users} path='answered'/>
+          <QuestionList questions={answeredQuestions()} users={users} path='answered'/>
         </div>
       )}/>
       <Route exact path='/answered/:id' render={({match: {params: {id}}}) => (
