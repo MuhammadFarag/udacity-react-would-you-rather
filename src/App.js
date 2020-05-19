@@ -7,6 +7,7 @@ import {addQuestion, answeredQuestions, handleLoadQuestions, handleLoadUsers, un
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
+import {_saveQuestion} from "./_DATA";
 
 
 function AddQuestion() {
@@ -18,19 +19,13 @@ function AddQuestion() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(addQuestion({
-      id: 'baba-boya',
+    _saveQuestion({
       author: activeUser.id,
-      timestamp: 1467166872634,
-      optionOne: {
-        votes: [],
-        text: optionOne,
-      },
-      optionTwo: {
-        votes: [],
-        text: optionTwo
-      }
-    }, activeUser))
+      optionOneText: optionOne,
+      optionTwoText: optionTwo,
+    }).then((savedQuestion) =>
+      dispatch(addQuestion(savedQuestion, activeUser))
+    )
 
   }
 
@@ -81,7 +76,11 @@ function App() {
         <Login/>
       )}/>
       <Route exact path='/add' render={() => (
-        <AddQuestion/>
+        <div>
+          <Navigation/>
+          <Logout/>
+          <AddQuestion/>
+        </div>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>
