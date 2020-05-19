@@ -114,11 +114,10 @@ export function handleLoadUsers() {
   }
 }
 
-export function handleAnswerQuestion(event, cb) {
+export function handleAnswerQuestion(event) {
   return (dispatch) => {
     _saveQuestionAnswer(event).then(() => {
       dispatch(answerQuestion(event))
-      cb()
     }).catch(() => alert("There was an error, please try again later"))
   }
 }

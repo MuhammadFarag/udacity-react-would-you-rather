@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {handleAnswerQuestion} from "../redux-stuff";
 
-function UnansweredQuestion({id, history}) {
+function UnansweredQuestion({id}) {
   const questions = useSelector(state => state.questions)
   const activeUser = useSelector(state => state.authentication.user)
 
@@ -26,8 +26,6 @@ function UnansweredQuestion({id, history}) {
       authedUser: activeUser.id,
       qid: activeQuestion.id,
       answer: selectedOption
-    }, () => {
-      history.push(`/answered/${activeQuestion.id}`)
     }))
   }
 

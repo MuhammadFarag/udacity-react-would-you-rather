@@ -2,14 +2,14 @@ import * as PropTypes from "prop-types";
 import React from "react";
 import {Link, withRouter} from "react-router-dom";
 
-function ListItem({author, onClick, question, path}) {
+function ListItem({author, onClick, question}) {
   return <li>
     {author.name} Asked:
     <ul>
       <li>{question.optionOne.text}</li>
       <li>{question.optionTwo.text}</li>
     </ul>
-    <Link to={`/${path}/${question.id}`} onClick={onClick}>View</Link>
+    <Link to={`/questions/${question.id}`} onClick={onClick}>View</Link>
   </li>;
 }
 

@@ -3,11 +3,10 @@ import Login from "./components/Login";
 import {Navigation} from "./components/Navigation";
 import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
-import {AnsweredQuestion} from "./components/AnsweredQuestion";
-import UnansweredQuestion from "./components/UnansweredQuestion";
 import {answeredQuestions, handleLoadQuestions, handleLoadUsers, unAnsweredQuestions} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
+import {Question} from "./components/Question";
 
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(handleLoadQuestions())
   }, [dispatch])
-  
+
   return (
 
     <Switch>
@@ -32,28 +31,21 @@ function App() {
         <div>
           <Navigation/>
           <Logout/>
-          <QuestionList questions={unAnsweredQuestions(questions, authenticatedUser)} path='unanswered'/>
+          <QuestionList questions={unAnsweredQuestions(questions, authenticatedUser)}/>
         </div>
       )}/>
       <Route exact path='/answered-questions' render={() => (
         <div>
           <Navigation/>
           <Logout/>
-          <QuestionList questions={answeredQuestions(questions, authenticatedUser)} path='answered'/>
+          <QuestionList questions={answeredQuestions(questions, authenticatedUser)}/>
         </div>
       )}/>
-      <Route exact path='/answered/:id' render={({match: {params: {id}}}) => (
+      <Route exact path='/questions/:id' render={({match: {params: {id}}}) => (
         <div>
           <Navigation/>
           <Logout/>
-          <AnsweredQuestion id={id}/>
-        </div>
-      )}/>
-      <Route exact path='/unanswered/:id' render={({match: {params: {id}}}) => (
-        <div>
-          <Navigation/>
-          <Logout/>
-          <UnansweredQuestion id={id}/>
+          <Question id={id}/>
         </div>
       )}/>
     </Switch>
