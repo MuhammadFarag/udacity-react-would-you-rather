@@ -3,11 +3,12 @@ import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {handleAnswerQuestion} from "../redux-stuff";
+import Media from "react-bootstrap/Media";
 
 function UnansweredQuestion({id}) {
   const questions = useSelector(state => state.questions)
   const activeUser = useSelector(state => state.authentication.user)
-
+  const users = useSelector(state => state.users)
 
   const [selectedOption, setSelectedOption] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -30,25 +31,42 @@ function UnansweredQuestion({id}) {
   }
 
   return <>
-    <div>
-      {activeQuestion.author.name} Asked
-    </div>
 
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          <input type="radio" value="optionOne" checked={selectedOption === "optionOne"} onChange={handleChange}/>
-          {activeQuestion.optionOne.text}
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="radio" value="optionTwo" checked={selectedOption === "optionTwo"} onChange={handleChange}/>
-          {activeQuestion.optionTwo.text}
-        </label>
-      </div>
-      <input type="submit" value="Submit" disabled={submitDisabled}/>
-    </form>
+    <Media>
+      <img
+        width={64}
+        height={64}
+        className="mr-3"
+        src={users[activeQuestion.author].avatarURL}
+        alt={users[activeQuestion.author].name}
+      />
+      <Media.Body>
+        <form className="form-group" onSubmit={handleSubmit}>
+
+          <h5>{users[activeQuestion.author].name} Asked</h5>
+          <div>Would you rather</div>
+          <div>
+            <label className="font-weight-bold">
+              <input className="form-check-input" type="radio" value="optionOne"
+                     checked={selectedOption === "optionOne"} onChange={handleChange}/>
+              {activeQuestion.optionOne.text}?
+            </label>
+          </div>
+          <div>or</div>
+          <div>
+            <label className="font-weight-bold">
+              <input className="form-check-input" type="radio" value="optionTwo"
+                     checked={selectedOption === "optionTwo"} onChange={handleChange}/>
+              {activeQuestion.optionTwo.text}?
+            </label>
+          </div>
+          <input className="btn btn-primary" type="submit" value="Submit" disabled={submitDisabled}/>
+
+        </form>
+
+      </Media.Body>
+    </Media>
+
   </>;
 }
 
