@@ -15,7 +15,9 @@ export function Navigation() {
         </Link>
       </li>
       <li>
-        <button disabled>New Question</button>
+        <Link to='/add'>
+          New Question
+        </Link>
       </li>
       <li>
         <button disabled>Leader Board</button>

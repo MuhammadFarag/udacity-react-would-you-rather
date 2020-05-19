@@ -9,6 +9,29 @@ import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
 
 
+function AddQuestion() {
+  const activeUser = useSelector(state => state.authentication.user)
+  return <div>
+    <div>
+      {activeUser.name} Asked
+    </div>
+
+    <form>
+      <div>
+        <label>
+          <input type="text" name="optionOne"/>
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" name="optionTwo"/>
+        </label>
+      </div>
+      <input type="submit" value="Submit"/>
+    </form>
+  </div>
+}
+
 function App() {
   const questions = useSelector(state => state.questions)
   const dispatch = useDispatch()
@@ -26,6 +49,9 @@ function App() {
     <Switch>
       <Route exact path='/' render={() => (
         <Login/>
+      )}/>
+      <Route exact path='/add' render={() => (
+        <AddQuestion/>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>
