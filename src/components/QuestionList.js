@@ -7,7 +7,7 @@ export function QuestionList({questions}) {
 
   return <div>
     <ol>
-      {questions.map((question) => (
+      {questions.sort((a, b) => b.timestamp - a.timestamp).map((question) => (
         <ListItem key={question.id} author={users[question.author]} question={question} onClick={() => {
         }}/>
       ))}
