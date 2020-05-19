@@ -22,23 +22,23 @@ function Navigation({history}) {
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
         <Nav.Item>
-          <Link class="nav-link" to='/unanswered-questions'>Unanswered Questions</Link>
+          <Link className="nav-link" to='/unanswered-questions'>Unanswered Questions</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link class="nav-link" to='/answered-questions'>Answered Questions</Link>
+          <Link className="nav-link" to='/answered-questions'>Answered Questions</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link class="nav-link" to='/add'>New Question</Link>
+          <Link className="nav-link" to='/add'>New Question</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link class="nav-link" to='/leaderboard'>Leader Board</Link>
+          <Link className="nav-link" to='/leaderboard'>Leader Board</Link>
         </Nav.Item>
       </Nav>
       <Navbar.Text>
         Hi {authenticatedUser.name}
       </Navbar.Text>
       <Navbar.Text>
-        <Link class="nav-link" to='/' onClick={handleLogout}>logout</Link>
+        <Link className="nav-link" to='/' onClick={handleLogout}>logout</Link>
       </Navbar.Text>
     </Navbar.Collapse>
   </Navbar>;
