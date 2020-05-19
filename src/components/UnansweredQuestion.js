@@ -60,7 +60,8 @@ function UnansweredQuestion({id}) {
               {activeQuestion.optionTwo.text}?
             </label>
           </div>
-          <input className="btn btn-primary" type="submit" value="Submit" disabled={submitDisabled}/>
+          <input className="btn btn-primary" type="submit" value="Submit"
+                 disabled={submitDisabled || (selectedOption === "")}/>
 
         </form>
 
