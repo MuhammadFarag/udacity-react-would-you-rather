@@ -33,12 +33,12 @@ export function AnsweredQuestion({id}) {
         <h5>{users[activeQuestion.author].name} Asked</h5>
         <div>Would you rather</div>
         <div className="font-weight-bold">{activeQuestion.optionOne.text}{'? '}
-          <Badge variant="success">{percentageOfOptionOneAnswers}% </Badge>{' '}
+          <Badge variant="success">{percentageOfOptionOneAnswers.toFixed(0)}% </Badge>{' '}
           <Badge variant="secondary">{numberOfOptionOneAnswers}</Badge>{activeUserAnsweredOptionOne ? "✔" : null}
         </div>
         <div>or</div>
         <div className="font-weight-bold">{activeQuestion.optionTwo.text}{'? '}
-          <Badge variant="success">{percentageOfOptionTwoAnswers}% </Badge>{' '}
+          <Badge variant="success">{percentageOfOptionTwoAnswers.toFixed(0)}% </Badge>{' '}
           <Badge variant="secondary">{numberOfOptionTwoAnswers}</Badge>{activeUserAnsweredOptionTwo ? "✔" : null}
         </div>
       </Media.Body>
