@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Login from "./components/Login";
-import {_getQuestions, _getUsers, _saveQuestionAnswer} from "./_DATA";
+import {_getQuestions, _saveQuestionAnswer} from "./_DATA";
 import {Navigation} from "./components/Navigation";
 import ListItem from "./components/ListItem";
 import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {receiveQuestionsAction, receiveUsersAction} from "./redux-stuff";
+import {handleLoadUsers, receiveQuestionsAction} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -25,22 +25,20 @@ function QuestionList({questions, users, path}) {
 
 }
 
-function App({history, store}) {
+function App({history}) {
   const users = useSelector(state => state.users)
   const questions = useSelector(state => state.questions)
   const dispatch = useDispatch()
   const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
   useEffect(() => {
-    _getUsers().then((users) => {
-      dispatch(receiveUsersAction(users))
-    })
-  }, [store])
+    dispatch(handleLoadUsers())
+  }, [dispatch])
 
   useEffect(() => {
     _getQuestions().then((questions) => {
       dispatch(receiveQuestionsAction(questions))
     })
-  }, [store])
+  }, [dispatch])
 
   const handleAuthentication = (user) => {
     setAuthenticatedUser(user)

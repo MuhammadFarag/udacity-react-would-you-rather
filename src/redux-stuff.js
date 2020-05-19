@@ -1,4 +1,6 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import thunk from 'redux-thunk';
+import {_getQuestions, _getUsers} from "./_DATA";
 
 const RECEIVE_USERS_DATA = 'RECEIVE_USERS_DATA';
 const RECEIVE_QUESTIONS_DATA = 'RECEIVE_QUESTIONS_DATA';
@@ -22,7 +24,7 @@ export function questions(state = {}, action) {
   }
 }
 
-export const store = createStore(combineReducers({users, questions}))
+export const store = createStore(combineReducers({users, questions}), applyMiddleware(thunk))
 
 export function receiveUsersAction(users) {
   return {
@@ -35,5 +37,21 @@ export function receiveQuestionsAction(questions) {
   return {
     type: RECEIVE_QUESTIONS_DATA,
     questions,
+  }
+}
+
+export function handleLoadQuestions() {
+  return (dispatch) => {
+    _getQuestions().then((questions) => {
+      dispatch(receiveQuestionsAction(questions))
+    })
+  }
+}
+
+export function handleLoadUsers() {
+  return (dispatch) => {
+    _getUsers().then((users) => {
+      dispatch(receiveUsersAction(users))
+    })
   }
 }
