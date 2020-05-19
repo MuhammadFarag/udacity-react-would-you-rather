@@ -6,7 +6,7 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {authenticateUser, handleAnswerQuestion, handleLoadQuestions, handleLoadUsers, logout} from "./redux-stuff";
+import {handleAnswerQuestion, handleLoadQuestions, handleLoadUsers, logout} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -37,10 +37,6 @@ function App({history}) {
     dispatch(handleLoadQuestions())
   }, [dispatch])
 
-  const handleAuthentication = (user) => {
-    dispatch(authenticateUser(user))
-  }
-
   const handleAnswered = (event) => {
     dispatch(handleAnswerQuestion(event, () => {
       history.push(`/answered/${event.qid}`)
@@ -68,7 +64,7 @@ function App({history}) {
 
     <Switch>
       <Route exact path='/' render={() => (
-        <Login users={Object.values(users)} onAuthentication={handleAuthentication}/>
+        <Login users={Object.values(users)}/>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
         <div>
