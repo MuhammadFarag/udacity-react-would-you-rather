@@ -46,8 +46,6 @@ function App({history}) {
     _saveQuestionAnswer(event).then(() => {
       _getQuestions().then((questions) => {
         dispatch(receiveQuestionsAction(questions))
-
-        // setQuestions(questions)
       }).then(() => {
         history.push(`/answered/${event.qid}`)
       })
