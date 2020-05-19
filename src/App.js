@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Login from "./components/Login";
 import {Navigation} from "./components/Navigation";
 import ListItem from "./components/ListItem";
@@ -6,7 +6,7 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import Logout from "./components/Logout";
 import {AnsweredQuestion} from "./components/AnsweredQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
-import {handleAnswerQuestion, handleLoadQuestions, handleLoadUsers} from "./redux-stuff";
+import {authenticateUser, handleAnswerQuestion, handleLoadQuestions, handleLoadUsers, logout} from "./redux-stuff";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -28,7 +28,7 @@ function App({history}) {
   const users = useSelector(state => state.users)
   const questions = useSelector(state => state.questions)
   const dispatch = useDispatch()
-  const [authenticatedUser, setAuthenticatedUser] = useState(undefined)
+  const authenticatedUser = useSelector(state => state.authentication.user)
   useEffect(() => {
     dispatch(handleLoadUsers())
   }, [dispatch])
@@ -38,7 +38,7 @@ function App({history}) {
   }, [dispatch])
 
   const handleAuthentication = (user) => {
-    setAuthenticatedUser(user)
+    dispatch(authenticateUser(user))
   }
 
   const handleAnswered = (event) => {
@@ -60,7 +60,7 @@ function App({history}) {
         .includes(authenticatedUser.id))
 
   function handleLogout() {
-    setAuthenticatedUser(undefined)
+    dispatch(logout())
   }
 
 

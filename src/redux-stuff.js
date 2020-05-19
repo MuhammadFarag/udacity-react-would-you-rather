@@ -5,6 +5,32 @@ import {_getQuestions, _getUsers, _saveQuestionAnswer} from "./_DATA";
 const RECEIVE_USERS_DATA = 'RECEIVE_USERS_DATA';
 const RECEIVE_QUESTIONS_DATA = 'RECEIVE_QUESTIONS_DATA';
 const ANSWER_QUESTION = 'ANSWER_QUESTION'
+const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
+const LOGOUT_USER = 'LOGOUT_USER'
+
+export function authentication(state = {}, action) {
+  switch (action.type) {
+    case AUTHENTICATE_USER:
+      return {user: action.user}
+    case LOGOUT_USER:
+      return {user: undefined}
+    default:
+      return state
+  }
+}
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user
+  }
+}
+
+export function logout() {
+  return {
+    type: LOGOUT_USER
+  }
+}
 
 export function users(state = {}, action) {
   switch (action.type) {
@@ -49,7 +75,7 @@ export function questions(state = {}, action) {
   }
 }
 
-export const store = createStore(combineReducers({users, questions}), applyMiddleware(thunk))
+export const store = createStore(combineReducers({users, questions, authentication}), applyMiddleware(thunk))
 
 export function receiveUsersAction(users) {
   return {
