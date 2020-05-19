@@ -1,11 +1,18 @@
 import * as PropTypes from "prop-types";
 import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {handleAnswerQuestion} from "../redux-stuff";
 
-function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
+function UnansweredQuestion({id, history}) {
+  const questions = useSelector(state => state.questions)
+  const activeUser = useSelector(state => state.authentication.user)
+
+
   const [selectedOption, setSelectedOption] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const activeQuestion = questions[id]
+  const dispatch = useDispatch()
 
 
   const handleChange = (event) => {
@@ -15,11 +22,13 @@ function UnansweredQuestion({activeUser, id, questions, onAnswered}) {
   const handleSubmit = (event) => {
     event.preventDefault()
     setSubmitDisabled(true);
-    onAnswered({
+    dispatch(handleAnswerQuestion({
       authedUser: activeUser.id,
       qid: activeQuestion.id,
       answer: selectedOption
-    })
+    }, () => {
+      history.push(`/answered/${activeQuestion.id}`)
+    }))
   }
 
   return <>
