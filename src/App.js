@@ -9,6 +9,7 @@ import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
 import AddQuestion from "./components/AddQuestion";
 import {LeaderBoard} from "./components/LeaderBoard";
+import {Page} from "./components/Page";
 
 function App() {
   const questions = useSelector(state => state.questions)
@@ -36,32 +37,24 @@ function App() {
         </div>
       )}/>
       <Route exact path='/leaderboard' render={() => (
-        <div>
-          <Navigation/>
-          <Logout/>
+        <Page>
           <LeaderBoard/>
-        </div>
+        </Page>
       )}/>
       <Route exact path='/unanswered-questions' render={() => (
-        <div>
-          <Navigation/>
-          <Logout/>
+        <Page>
           <QuestionList questions={unAnsweredQuestions(questions, authenticatedUser)}/>
-        </div>
+        </Page>
       )}/>
       <Route exact path='/answered-questions' render={() => (
-        <div>
-          <Navigation/>
-          <Logout/>
+        <Page>
           <QuestionList questions={answeredQuestions(questions, authenticatedUser)}/>
-        </div>
+        </Page>
       )}/>
       <Route exact path='/questions/:id' render={({match: {params: {id}}}) => (
-        <div>
-          <Navigation/>
-          <Logout/>
+        <Page>
           <Question id={id}/>
-        </div>
+        </Page>
       )}/>
     </Switch>
   );
