@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import {AnsweredQuestion} from "./AnsweredQuestion";
 import UnansweredQuestion from "./UnansweredQuestion";
 import React from "react";
+import {Redirect} from "react-router-dom";
 
 export function Question({id}) {
   const questions = useSelector(state => state.questions)
@@ -9,7 +10,7 @@ export function Question({id}) {
   const activeQuestion = questions[id]
 
   if (!activeQuestion) {
-    return <div>Question can't be found</div>
+    return <Redirect to="/not-found"/>
   }
 
   const activeUserAnsweredOptionOne = activeQuestion.optionOne.votes.includes(activeUser.id)

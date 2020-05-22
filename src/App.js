@@ -10,6 +10,7 @@ import {Page} from "./components/Page";
 import {handleLoadQuestions} from "./questions/actions";
 import {handleLoadUsers} from "./users/actions";
 import {answeredQuestions, unAnsweredQuestions} from "./questions/utils";
+import {PageNotFound} from "./components/PageNotFound";
 
 function App({location}) {
   const questions = useSelector(state => state.questions)
@@ -59,11 +60,15 @@ function App({location}) {
           <Question id={id}/>
         </Page>
       )}/>
-      <Route path='/' render={() => (
+      <Route exact path='/not-found' render={() => (
         <Page>
-          <div>The page you are looking for can't be found</div>
+          <PageNotFound/>
         </Page>
       )}/>
+      <Route render={() => (
+        <Redirect to="/not-found"/>
+      )}/>
+
     </Switch>
   );
 }
