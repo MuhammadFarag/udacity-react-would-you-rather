@@ -4,17 +4,12 @@ import {Nav, Navbar} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../authentication/actions";
 
-function Navigation({history}) {
+function Navigation() {
   const authenticatedUser = useSelector(state => state.authentication.user)
   const dispatch = useDispatch()
 
   const handleLogout = () => {
     dispatch(logout())
-  }
-
-  if (!authenticatedUser) {
-    history.push('/')
-    return null
   }
 
   return <Navbar expand="lg">

@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import {authenticateUser} from "../authentication/actions";
 
-function Login() {
+function Login({location}) {
   const dispatch = useDispatch()
   const users = useSelector(state => Object.values(state.users))
 
@@ -16,6 +16,7 @@ function Login() {
     dispatch(authenticateUser(user))
   }
 
+  const nextPath = location.state ? location.state.referrer : "/unanswered-questions"
   return <Container>
     <Row className="justify-content-md-center">
       <Col md="auto">
@@ -23,7 +24,7 @@ function Login() {
           {users.map((user) => (
             <ListGroup.Item key={user.id}>
               <Image src={user.avatarURL} roundedCircle/>
-              <Link to='/unanswered-questions' onClick={() => {
+              <Link to={nextPath} onClick={() => {
                 handleAuthentication(user)
               }}>{user.name}</Link>
             </ListGroup.Item>

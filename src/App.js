@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Login from "./components/Login";
-import {Route, Switch, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionList} from "./components/QuestionList";
 import {Question} from "./components/Question";
@@ -11,7 +11,7 @@ import {handleLoadQuestions} from "./questions/actions";
 import {handleLoadUsers} from "./users/actions";
 import {answeredQuestions, unAnsweredQuestions} from "./questions/utils";
 
-function App() {
+function App({location}) {
   const questions = useSelector(state => state.questions)
   const dispatch = useDispatch()
   const authenticatedUser = useSelector(state => state.authentication.user)
@@ -22,6 +22,11 @@ function App() {
   useEffect(() => {
     dispatch(handleLoadQuestions())
   }, [dispatch])
+
+
+  if (!authenticatedUser && location.pathname !== '/') {
+    return <Redirect to={{pathname: "/", state: {referrer: location.pathname}}}/>
+  }
 
   return (
 
